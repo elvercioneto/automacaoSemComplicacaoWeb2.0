@@ -25,7 +25,7 @@ public class testeWeb {
 
         driverWeb = new Driver("chrome");
 
-        driver = driverWeb.getDriver();
+        driver = Driver.getDriver();
 
         driver.get("https://www.chronosacademy.com.br");
         principalPage = new PrincipalPage(driver);
@@ -37,8 +37,6 @@ public class testeWeb {
         assertEquals("Porque Tempo É Conhecimento", titulo);
     }
 
-
-
     @Test
     public void segundoTeste(){
         principalPage.clickBotao();
@@ -49,15 +47,10 @@ public class testeWeb {
         assertEquals("AUTOMAÇÃO SEM COMPLICAÇÃO WEB 2.0", titulo);
     }
 
-
-
-
-
     @After
         public void finalizaTeste(){
+
             driver.quit();
         }
-
-
 
 }
