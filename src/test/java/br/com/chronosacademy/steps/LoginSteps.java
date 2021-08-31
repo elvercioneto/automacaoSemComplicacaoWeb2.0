@@ -1,63 +1,104 @@
 package br.com.chronosacademy.steps;
 
+import br.com.chronosacademy.core.Driver;
+import br.com.chronosacademy.enums.Browser;
+import br.com.chronosacademy.pages.LoginPage;
+import br.com.chronosacademy.pages.NewAccountPage;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Então;
 import io.cucumber.java.pt.Quando;
+import org.junit.Assert;
+
+import java.util.Map;
 
 public class LoginSteps {
-    @Dado("que a janela modal esteja sendo exibida")
-    public void queAJanelaModalEstejaSendoExibida() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    LoginPage loginPage;
+    String username;
+
+    @Before
+    public void iniciaNavegador(){
+        new Driver(Browser.CHROME);
     }
-    @Quando("for realizado um clique fora da modal")
-    public void forRealizadoUmCliqueForaDaModal() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-    @Então("a janela modal deve ser fechada")
-    public void aJanelaModalDeveSerFechada() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    @After
+    public void fechaNavegador(){
+        Driver.getDriver().quit();
     }
 
+
+    @Dado("que a janela modal esteja sendo exibida")
+    public void queAJanelaModalEstejaSendoExibida() {
+        Driver.getDriver().get("https://www.advantageonlineshopping.com/");
+        loginPage = new LoginPage();
+        loginPage.clickBtnLogin();
+        loginPage.visibilityOfBtnFechar();
+        loginPage.aguardaLoader();;
+
+    }
+
+    @Quando("for realizado um clique fora da modal")
+    public void forRealizadoUmCliqueForaDaModal() {
+
+        loginPage.clickDivFecharModal();
+    }
+    @Então("a janela modal deve ser fechada")
+    public void aJanelaModalDeveSerFechada() throws Exception {
+        try {
+            loginPage.invisibilityOfBtnFechar();
+        } catch (Exception e) {
+            throw new Exception("A janela modal não foi fechada");
+        }
+    }
     @Quando("for realizado um clique no icone de fechar da modal")
     public void forRealizadoUmCliqueNoIconeDeFecharDaModal() {
-        
+        loginPage.clickBtnFechar();
     }
 
     @Quando("for realizado o clique em Create New Account")
     public void forRealizadoOCliqueEmCreateNewAccount() {
-        
+        loginPage.linkCreateAccount();
     }
 
     @Entao("a pagina Create Account deve ser exibida")
     public void aPaginaCreateAccountDeveSerExibida() {
+        NewAccountPage newAccountPage = new NewAccountPage();
+        Assert.assertEquals("CREATE ACCOUNT", newAccountPage.getTextNewAccount());
         
     }
 
     @Quando("os campos de login forem preenchidos com os valores")
-    public void osCamposDeLoginForemPreenchidosComOsValores() {
-        
+    public void osCamposDeLoginForemPreenchidosComOsValores(Map<String, String> map) {
+        username = map.get("usuario");
+        String password = map.get("senha");
+        boolean remember = Boolean.parseBoolean(map.get("remember"));
+
+        loginPage.setInpUserName(username);
+        loginPage.setInpPassword(password);
+
+        if (remember) loginPage.clickInpRemember();
     }
 
     @Quando("for realizado o clique no botao Sign in")
     public void forRealizadoOCliqueNoBotaoSignIn() {
-        
+        loginPage.clickBtnSignIn();
     }
 
     @Entao("deve ser possivel logar no sistema")
     public void deveSerPossivelLogarNoSistema() {
-        
+        Assert.assertEquals(username, loginPage.getUsuarioLogado());
     }
 
     @Entao("o sistema exibe uma mensagem de erro")
     public void oSistemaExibeUmaMensagemDeErro() {
+        Assert.assertEquals("Incorrect user name or password.", loginPage.getErroLogin());
         
     }
 
     @Entao("o botao sign in deve permanecer desabilitado")
     public void oBotaoSignInDevePermanecerDesabilitado() {
+        boolean enabled = loginPage.isBtnSignIn();
+        Assert.assertFalse(enabled);
     }
 }

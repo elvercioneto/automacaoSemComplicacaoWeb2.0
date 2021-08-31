@@ -12,31 +12,74 @@ public class LoginPage {
         PageFactory.initElements(Driver.getDriver(), loginMap);
     }
 
-    public void clickBtnLogin(){
+    public void clickBtnLogin() {
+        Driver.visibilityOf(loginMap.btnLogin);
         loginMap.btnLogin.click();
     }
-    public void clickBtnFechar(){
+
+    public void clickBtnFechar() {
+
+        Driver.visibilityOf(loginMap.btnFechar);
         loginMap.btnFechar.click();
+
     }
+
     public void clickDivFecharModal() {
+
         loginMap.divFecharModal.click();
     }
+
     public void setInpUserName(String username) {
-        loginMap.inpUserName.sendKeys(username);
+
+        if (username != null) {
+            loginMap.inpUserName.sendKeys(username);
+        }
+
     }
+
     public void setInpPassword(String password) {
-        loginMap.inpPassword.sendKeys(password);
+        if (password != null) {
+            loginMap.inpPassword.sendKeys(password);
+
+        }
     }
-    public void clickInpRemember(){
+    public void clickInpRemember() {
         loginMap.inpRemember.click();
     }
-    public void btnSignIn(){
+
+    public void clickBtnSignIn() {
+        Driver.visibilityOf(loginMap.btnSignIn);
         loginMap.btnSignIn.click();
     }
-    public void linkCreateAccount(){
+
+    public void linkCreateAccount() {
+        Driver.visibilityOf(loginMap.linkCreateAccount);
         loginMap.linkCreateAccount.click();
+
     }
-    public boolean isBtnSignIn(){
+
+    public boolean isBtnSignIn() {
         return loginMap.btnSignIn.isEnabled();
     }
+
+
+    public void visibilityOfBtnFechar() {
+        Driver.visibilityOf(loginMap.btnFechar);
+    }
+    public void invisibilityOfBtnFechar() {
+        Driver.invisibility(loginMap.btnFechar);
+    }
+
+    public void aguardaLoader() {
+        Driver.attributeChange(loginMap.divLoader, "display", "none");
+    }
+    public String getUsuarioLogado() {
+        Driver.visibilityOf(loginMap.textLogado);
+        return loginMap.textLogado.getText();
+    }
+    public String getErroLogin(){
+        Driver.visibilityOf(loginMap.textErroLogin);
+        return loginMap.textErroLogin.getText();
+    }
+    
 }
