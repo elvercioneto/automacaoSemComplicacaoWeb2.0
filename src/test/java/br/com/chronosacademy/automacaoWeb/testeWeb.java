@@ -31,14 +31,14 @@ public class testeWeb {
         driver.get("https://www.chronosacademy.com.br");
         principalPage = new PrincipalPage(driver);
     }
-    @Test
+    //@Test
     public void primeiroTeste() {
         String titulo = principalPage.getTitulo();
 
         assertEquals("Porque Tempo É Conhecimento", titulo);
     }
 
-    @Test
+    //@Test
     public void segundoTeste(){
         principalPage.clickBotao();
         cursoPage = new CursoPage(driver);

@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class MediaTest {
-    @Test
+
     public void validaAprovado(){
         double n1 = 5;
         double n2 = 5;
@@ -16,7 +16,7 @@ public class MediaTest {
         assertEquals("Aprovado", resultado);
     }
 
-    @Test
+
     public void validaReprovado(){
         double n1 = 5;
         double n2 = 4.9;

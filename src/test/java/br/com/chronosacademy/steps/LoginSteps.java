@@ -8,7 +8,6 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.Entao;
-import io.cucumber.java.pt.Então;
 import io.cucumber.java.pt.Quando;
 import org.junit.Assert;
 
@@ -16,56 +15,55 @@ import java.util.Map;
 
 public class LoginSteps {
     LoginPage loginPage;
+    NewAccountPage newAccountPage;
     String username;
 
     @Before
     public void iniciaNavegador(){
         new Driver(Browser.CHROME);
     }
+
     @After
     public void fechaNavegador(){
         Driver.getDriver().quit();
     }
 
-
-    @Dado("que a janela modal esteja sendo exibida")
-    public void queAJanelaModalEstejaSendoExibida() {
+    @Dado("que a modal esteja sendo exibida")
+    public void queAModalEstejaSendoExibida() {
         Driver.getDriver().get("https://www.advantageonlineshopping.com/");
         loginPage = new LoginPage();
         loginPage.clickBtnLogin();
         loginPage.visibilityOfBtnFechar();
-        loginPage.aguardaLoader();;
-
+        loginPage.aguardaLoader();
     }
-
     @Quando("for realizado um clique fora da modal")
     public void forRealizadoUmCliqueForaDaModal() {
-
-        loginPage.clickDivFecharModal();
+        loginPage.clickDivFechaModal();
     }
-    @Então("a janela modal deve ser fechada")
+    @Entao("a janela modal deve ser fechada")
     public void aJanelaModalDeveSerFechada() throws Exception {
         try {
             loginPage.invisibilityOfBtnFechar();
-        } catch (Exception e) {
+        } catch (Exception e){
             throw new Exception("A janela modal não foi fechada");
         }
     }
-    @Quando("for realizado um clique no icone de fechar da modal")
-    public void forRealizadoUmCliqueNoIconeDeFecharDaModal() {
+
+    @Quando("for realizado um clique icone de fechar da modal")
+    public void forRealizadoUmCliqueIconeDeFecharDaModal() {
         loginPage.clickBtnFechar();
     }
 
-    @Quando("for realizado o clique em Create New Account")
-    public void forRealizadoOCliqueEmCreateNewAccount() {
-        loginPage.linkCreateAccount();
+    @Quando("for realizado um clique em Create New Account")
+    public void forRealizadoUmCliqueEmCreateNewAccount() {
+        loginPage.clickLinkCreateAccount();
     }
 
     @Entao("a pagina Create Account deve ser exibida")
     public void aPaginaCreateAccountDeveSerExibida() {
-        NewAccountPage newAccountPage = new NewAccountPage();
+        newAccountPage = new NewAccountPage();
+
         Assert.assertEquals("CREATE ACCOUNT", newAccountPage.getTextNewAccount());
-        
     }
 
     @Quando("os campos de login forem preenchidos com os valores")
@@ -80,7 +78,7 @@ public class LoginSteps {
         if (remember) loginPage.clickInpRemember();
     }
 
-    @Quando("for realizado o clique no botao Sign in")
+    @Quando("for realizado o clique no botao sign in")
     public void forRealizadoOCliqueNoBotaoSignIn() {
         loginPage.clickBtnSignIn();
     }
@@ -90,10 +88,9 @@ public class LoginSteps {
         Assert.assertEquals(username, loginPage.getUsuarioLogado());
     }
 
-    @Entao("o sistema exibe uma mensagem de erro")
-    public void oSistemaExibeUmaMensagemDeErro() {
-        Assert.assertEquals("Incorrect user name or password.", loginPage.getErroLogin());
-        
+    @Entao("o sistema devera exibir uma mensagem de erro")
+    public void oSistemaDeveraExibirUmaMensagemDeErro() {
+        Assert.assertEquals("Incorrect user name or password.",loginPage.getErroLogin());
     }
 
     @Entao("o botao sign in deve permanecer desabilitado")

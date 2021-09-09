@@ -12,74 +12,70 @@ public class LoginPage {
         PageFactory.initElements(Driver.getDriver(), loginMap);
     }
 
-    public void clickBtnLogin() {
+    public void clickBtnLogin(){
         Driver.visibilityOf(loginMap.btnLogin);
+
         loginMap.btnLogin.click();
     }
 
-    public void clickBtnFechar() {
-
-        Driver.visibilityOf(loginMap.btnFechar);
+    public void clickBtnFechar(){
         loginMap.btnFechar.click();
-
     }
 
-    public void clickDivFecharModal() {
-
-        loginMap.divFecharModal.click();
+    public void clickDivFechaModal(){
+        loginMap.divFechaModal.click();
     }
 
-    public void setInpUserName(String username) {
-
-        if (username != null) {
+    public void setInpUserName(String username){
+        if(username != null){
             loginMap.inpUserName.sendKeys(username);
         }
 
     }
 
-    public void setInpPassword(String password) {
-        if (password != null) {
+    public void setInpPassword(String password){
+        if (password != null){
             loginMap.inpPassword.sendKeys(password);
-
         }
     }
-    public void clickInpRemember() {
+
+    public void clickInpRemember(){
         loginMap.inpRemember.click();
     }
 
-    public void clickBtnSignIn() {
-        Driver.visibilityOf(loginMap.btnSignIn);
+    public void clickBtnSignIn(){
         loginMap.btnSignIn.click();
     }
 
-    public void linkCreateAccount() {
-        Driver.visibilityOf(loginMap.linkCreateAccount);
+    public void clickLinkCreateAccount(){
         loginMap.linkCreateAccount.click();
-
     }
 
-    public boolean isBtnSignIn() {
+    public boolean isBtnSignIn(){
         return loginMap.btnSignIn.isEnabled();
     }
 
-
-    public void visibilityOfBtnFechar() {
+    public void visibilityOfBtnFechar(){
         Driver.visibilityOf(loginMap.btnFechar);
     }
-    public void invisibilityOfBtnFechar() {
-        Driver.invisibility(loginMap.btnFechar);
+
+    public void invisibilityOfBtnFechar(){
+        Driver.invisibilityOf(loginMap.btnFechar);
     }
 
-    public void aguardaLoader() {
+    public void aguardaLoader(){
         Driver.attributeChange(loginMap.divLoader, "display", "none");
     }
-    public String getUsuarioLogado() {
+
+    public String getUsuarioLogado(){
         Driver.visibilityOf(loginMap.textLogado);
         return loginMap.textLogado.getText();
     }
+
     public String getErroLogin(){
         Driver.visibilityOf(loginMap.textErroLogin);
         return loginMap.textErroLogin.getText();
     }
-    
+
+
 }

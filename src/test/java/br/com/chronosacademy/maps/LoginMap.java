@@ -5,14 +5,15 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginMap {
     @FindBy(css = "#menuUser")
-    public WebElement btnLogin;
+    public WebElement btnLogin; //click
 
     @FindBy(css = ".closeBtn")
-    public WebElement btnFechar;
+    public WebElement btnFechar; //click
 
     @FindBy(css = ".PopUp")
-    public WebElement divFecharModal;
+    public WebElement divFechaModal; //click
 
+    //@FindBy(name = "username")
     @FindBy(css = "*[name='username']")
     public WebElement inpUserName; //set
 
@@ -23,10 +24,10 @@ public class LoginMap {
     public WebElement inpRemember; //click
 
     @FindBy(css = "#sign_in_btnundefined")
-    public WebElement btnSignIn;
+    public WebElement btnSignIn; //click
 
-    @FindBy(css = ".create-new-account")
-    public WebElement linkCreateAccount;
+    @FindBy(linkText = "CREATE NEW ACCOUNT")
+    public WebElement linkCreateAccount; //click
 
     @FindBy(css = ".loader")
     public WebElement divLoader;
@@ -36,8 +37,5 @@ public class LoginMap {
 
     @FindBy(xpath = "//label[contains(text(), 'Incorrect')]")
     public WebElement textErroLogin;
-
-
-
 
 }
